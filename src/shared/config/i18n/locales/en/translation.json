@@ -1,0 +1,73 @@
+{
+  "welcome": "Welcome",
+  "Login": {
+    "signIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "newToFlowtime": "New to Flowtime?",
+    "signUpNow": "Sign Up now."
+  },
+  "Registration": {
+    "signUp": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "or": "or",
+    "signUpWithGoogle": "Sign Up with Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "singUpNow": "Sign In."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "email": "Email",
+    "sendResetLink": "Send Reset Link",
+    "rememberPassword": "Remember your password?",
+    "signIn": "Sign In.",
+    "success": "Check your email, we’ve sent a password reset link.",
+    "error": "❌ Something went wrong. Please try again."
+  },
+  "resetPassword": {
+    "title": "Reset Your Password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm Password",
+    "resetBtn": "Reset Password",
+    "rememberPassword": "Remember your password?",
+    "signIn": "Sign In."
+  },
+  "ConfirmEmail": {
+    "emailConfirmed": "Email Confirmed",
+    "emailConfirmedDescription": "Your email has been successfully verified. You can now sign in to your account.",
+    "signIn": "Sign In",
+    "confirmationFailed": "Confirmation Failed",
+    "confirmationFailedDescription": "The confirmation link is invalid or has expired. Please request a new one.",
+    "resendEmail": "Resend Email",
+    "backToSignIn": "Back to Sign In"
+  },
+  "logout": "Logout",
+  "Pages": {
+    "MainPage": {
+      "name": "Main"
+    },
+    "AboutUsPage": {
+      "name": "About Us"
+    },
+    "RoadmapPage": {
+      "name": "Roadmap"
+    },
+    "DashboardPage": {
+      "name": "Dashboard"
+    },
+    "ClientsPage": {
+      "name": "Clients"
+    },
+    "AppointmentsPage": {
+      "name": "Appointments"
+    },
+    "ProfilePage": {
+      "name": "Profile"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "welcome": "Ласкаво просимо",
+  "Login": {
+    "signIn": "Увійти",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "forgotPassword": "Забули пароль?",
+    "newToFlowtime": "Вперше на Flowtime?",
+    "signUpNow": "Зареєструйтесь зараз."
+  },
+  "Registration": {
+    "signUp": "Реєстрація",
+    "firstName": "Ім'я",
+    "lastName": "Фаміля",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "confirmPassword": "Підтвердження пароля",
+    "or": "або",
+    "signUpWithGoogle": "Реєстрація через Google",
+    "alreadyHaveAccount": "Вже маєте обліковий запис?",
+    "singUpNow": "Увійти."
+  },
+  "forgotPassword": {
+    "title": "Відновлення пароля",
+    "email": "Електронна пошта",
+    "sendResetLink": "Надіслати посилання для скидання",
+    "rememberPassword": "Пам’ятаєте пароль?",
+    "signIn": "Увійти.",
+    "success": "Перевірте вашу електронну пошту, ми надіслали посилання для скидання пароля.",
+    "error": "❌ Сталася помилка. Спробуйте ще раз."
+  },
+  "resetPassword": {
+    "title": "Скидання пароля",
+    "newPassword": "Новий пароль",
+    "confirmPassword": "Підтвердження пароля",
+    "resetBtn": "Скинути пароль",
+    "rememberPassword": "Пам’ятаєте пароль?",
+    "signIn": "Увійти."
+  },
+  "ConfirmEmail": {
+    "emailConfirmed": "Email підтверджено",
+    "emailConfirmedDescription": "Вашу електронну пошту успішно підтверджено. Тепер ви можете увійти до свого акаунту.",
+    "signIn": "Увійти",
+    "confirmationFailed": "Помилка підтвердження",
+    "confirmationFailedDescription": "Посилання на підтвердження недійсне або термін його дії минув. Будь ласка, надішліть запит ще раз.",
+    "resendEmail": "Надіслати ще раз",
+    "backToSignIn": "Назад до входу"
+  },
+  "logout": "Вийти",
+  "Pages": {
+    "MainPage": {
+      "name": "Головна"
+    },
+    "AboutUsPage": {
+      "name": "Про нас"
+    },
+    "RoadmapPage": {
+      "name": "Плани"
+    },
+    "DashboardPage": {
+      "name": "Панель керування"
+    },
+    "ClientsPage": {
+      "name": "Клієнти"
+    },
+    "AppointmentsPage": {
+      "name": "Записи"
+    },
+    "ProfilePage": {
+      "name": "Профіль"
+    }
+  }
+}

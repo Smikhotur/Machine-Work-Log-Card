@@ -1,0 +1,21 @@
+# robots.txt for SaaS App
+
+# Allow all crawlers full access to the main site
+User-agent: *
+
+# Disallow sensitive or technical routes
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /admin
+
+# Optional: disallow query-based pages (for duplicate content)
+Disallow: /*?*
+
+# Allow everything else
+Allow: /
+
+# Point to sitemap
+Sitemap: https://your-domain.com/sitemap.xml
