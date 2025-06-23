@@ -1,0 +1,8 @@
+node_modules/
+dist/
+config/webpack.config.js
+.eslintrc.js
+webpack.config.js
+vite.config.ts
+stylelint.config.cjs
+public/*
