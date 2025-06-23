@@ -16,8 +16,8 @@
     "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix --config stylelint.config.cjs",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "npm run build:prod",
+    "deploy": "gh-pages -d dist"
   },
    "dependencies": {
     "@react-oauth/google": "^0.12.2",
