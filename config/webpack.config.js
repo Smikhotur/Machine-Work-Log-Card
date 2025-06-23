@@ -23,7 +23,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: isDev ? '[name].js' : '[name].[contenthash].js',
-    publicPath: '/',
+    publicPath: isDev ? '/' : '/Machine-Work-Log-Card/', // ✅ Виправлено
     clean: true,
   },
   resolve: {
