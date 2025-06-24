@@ -1,0 +1,61 @@
+.container {
+  padding: 24px;
+  background-color: #f9f9fb;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  max-width: 500px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.fileInput {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.progressContainer {
+  margin-top: 12px;
+}
+
+.progressBarBackground {
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 10px;
+  background-color: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.message {
+  margin-top: 12px;
+  color: #2e7d32;
+  font-weight: 500;
+}

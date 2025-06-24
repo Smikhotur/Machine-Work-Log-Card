@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import ExcelJS from 'exceljs';
 
+import styles from './ExcelProcessor.module.scss';
+
 function replaceMonthAndYearWithCurrent(text: string): string {
   const months = [
     'січень',
@@ -263,42 +265,43 @@ export const ExcelEditor: React.FC = () => {
   };
 
   return (
-    <div>
-      <h3>Завантаж шаблон Excel</h3>
-      <label>Оберіть місяць: </label>
-      <select value={month} onChange={handleMonthChange}>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Завантаж картки Excel</h3>
+
+      <label className={styles.label}>Оберіть місяць: </label>
+      <select
+        value={month}
+        onChange={handleMonthChange}
+        className={styles.select}
+      >
         {monthOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
           </option>
         ))}
       </select>
-      <br />
+
       <input
         type="file"
         accept=".xlsx"
         multiple
         onChange={handleUploadAndEdit}
+        className={styles.fileInput}
       />
-      <br />
 
       {loading && (
-        <div style={{ marginTop: 12 }}>
-          <div style={{ height: '10px', width: '100%', background: '#ccc' }}>
+        <div className={styles.progressContainer}>
+          <div className={styles.progressBarBackground}>
             <div
-              style={{
-                width: `${progress}%`,
-                background: '#4caf50',
-                height: '10px',
-                transition: 'width 0.3s ease',
-              }}
+              className={styles.progressBar}
+              style={{ width: `${progress}%` }}
             />
           </div>
           <p>{progress}%</p>
         </div>
       )}
 
-      {!loading && message && <p style={{ marginTop: 12 }}>{message}</p>}
+      {!loading && message && <p className={styles.message}>{message}</p>}
     </div>
   );
 };
