@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import ExcelJS from 'exceljs';
+import ExcelJS, { CellRichTextValue, CellValue } from 'exceljs';
 
 import styles from './ExcelProcessor.module.scss';
 
@@ -107,13 +107,29 @@ export const ExcelEditor: React.FC = () => {
         // Взяти значення з I44 і додати в K49
         const fuel = worksheet.getCell('I44').value;
         // Взяти значення з I44 і додати в K49
-        const str = worksheet.getCell('A5').value;
+        const rawValue: CellValue = worksheet.getCell('A5').value;
+
+        console.log(112, rawValue);
+
+        let str: string;
+
+        if (typeof rawValue === 'string') {
+          str = rawValue;
+        } else if (
+          typeof rawValue === 'object' &&
+          rawValue !== null &&
+          'richText' in rawValue
+        ) {
+          str = (rawValue as CellRichTextValue).richText
+            .map((el) => el.text)
+            .join('');
+        } else {
+          str = ''; // fallback, якщо тип не підтримується
+        }
 
         worksheet.getCell('K63').value = daysInMonth;
         worksheet.getCell('K65').value = daysInMonth;
-        worksheet.getCell('A5').value = replaceMonthAndYearWithCurrent(
-          String(str)
-        );
+        worksheet.getCell('A5').value = replaceMonthAndYearWithCurrent(str);
 
         let sourceValue: number | undefined;
         let sourceValueTwo: number | undefined;
