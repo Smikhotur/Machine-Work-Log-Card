@@ -103,11 +103,14 @@ export const ExcelEditor: React.FC = () => {
         const worksheet = workbook.getWorksheet('Картки обліку роботи машин');
         if (!worksheet) continue;
 
-        // Взяти значення з D44 і додати в F6 і G6
-        const speedometer = worksheet.getCell('D44').value;
-        // Взяти значення з I44 і додати в K49
-        const fuel = worksheet.getCell('I44').value;
-        // Взяти значення з I44 і додати в K49
+        const cellA44Value = worksheet.getCell('A44').value;
+        const lastRow =
+          typeof cellA44Value === 'string' && cellA44Value.startsWith('31.')
+            ? 45
+            : 44;
+
+        const speedometer = worksheet.getCell(`D${lastRow}`).value;
+        const fuel = worksheet.getCell(`I${lastRow}`).value;
         const rawValue: CellValue = worksheet.getCell('A5').value;
 
         console.log(112, rawValue);
@@ -149,6 +152,7 @@ export const ExcelEditor: React.FC = () => {
         if (sourceValue !== undefined) {
           worksheet.getCell('F6').value = sourceValue;
           worksheet.getCell('G6').value = sourceValue;
+          worksheet.getCell('A6').value = Math.round(sourceValue); // 🟩 тут нове
         }
         //!-----------------------------------------------------------------
         if (typeof fuel === 'number') {
@@ -158,7 +162,7 @@ export const ExcelEditor: React.FC = () => {
         }
 
         if (sourceValueTwo !== undefined) {
-          worksheet.getCell('K50').value = sourceValueTwo;
+          worksheet.getCell('K50').value = Math.round(sourceValueTwo); // 🟩 тут нове
         }
 
         let formulaTemplate = '';
@@ -294,6 +298,10 @@ export const ExcelEditor: React.FC = () => {
           lastRowValue.startsWith('31.') &&
           daysInMonth === 30
         ) {
+          worksheet.getCell('K51').value = { formula: '=K44+L44' };
+          worksheet.getCell('K52').value = { formula: '=I44' };
+          worksheet.getCell('K53').value = { formula: '=J44' };
+          worksheet.getCell('K54').value = { formula: '=K53' };
           // 🟩 Додаємо формули у 44-й рядок
           worksheet.getCell('D44').value = { formula: '=D43+E43' };
           worksheet.getCell('E44').value = { formula: '=SUM(E14:E43)' };
@@ -306,11 +314,6 @@ export const ExcelEditor: React.FC = () => {
           worksheet.getCell('L44').value = { formula: '=SUM(L14:L43)' };
           worksheet.getCell('M44').value = { formula: '=SUM(M14:M43)' };
           worksheet.getCell('F7').value = { formula: '=D44' };
-
-          worksheet.getCell('K51').value = { formula: '=K44+L44' };
-          worksheet.getCell('K52').value = { formula: '=I44' };
-          worksheet.getCell('K53').value = { formula: '=J44' };
-          worksheet.getCell('K54').value = { formula: '=K53' };
 
           worksheet.mergeCells('A44:B44');
           const cell = worksheet.getCell('A44');
@@ -346,7 +349,10 @@ export const ExcelEditor: React.FC = () => {
         }
 
         if (daysInMonth === 31) {
-          console.log(289, daysInMonth);
+          worksheet.getCell('K51').value = { formula: '=K45+L45' };
+          worksheet.getCell('K52').value = { formula: '=I45' };
+          worksheet.getCell('K53').value = { formula: '=J45' };
+          worksheet.getCell('K54').value = { formula: '=K53' };
 
           worksheet.getCell('D45').value = { formula: '=D44+E44' };
           worksheet.getCell('E45').value = { formula: '=SUM(E14:E44)' };
@@ -359,11 +365,6 @@ export const ExcelEditor: React.FC = () => {
           worksheet.getCell('L45').value = { formula: '=SUM(L14:L44)' };
           worksheet.getCell('M45').value = { formula: '=SUM(M14:M44)' };
           worksheet.getCell('F7').value = { formula: '=D45' };
-
-          worksheet.getCell('K51').value = { formula: '=K45+L45' };
-          worksheet.getCell('K52').value = { formula: '=I45' };
-          worksheet.getCell('K53').value = { formula: '=J45' };
-          worksheet.getCell('K54').value = { formula: '=K53' };
 
           const cellA45 = worksheet.getCell('A45');
 
@@ -390,17 +391,6 @@ export const ExcelEditor: React.FC = () => {
           const cell45 = worksheet.getCell('A45');
           cell.style = {
             font: { bold: false, name: 'Times New Roman', size: 11 },
-            alignment: { horizontal: 'center', vertical: 'middle' },
-            border: {
-              top: { style: 'thin' },
-              left: { style: 'thin' },
-              bottom: { style: 'thin' },
-              right: { style: 'thin' },
-            },
-          };
-
-          cell45.style = {
-            font: { bold: true, name: 'Times New Roman', size: 12 },
             alignment: { horizontal: 'center', vertical: 'middle' },
             border: {
               top: { style: 'thin' },
@@ -448,6 +438,17 @@ export const ExcelEditor: React.FC = () => {
               },
             };
           }
+
+          cell45.style = {
+            font: { bold: true, name: 'Times New Roman', size: 12 },
+            alignment: { horizontal: 'center', vertical: 'middle' },
+            border: {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' },
+            },
+          };
         }
 
         const headerCell = worksheet.getCell('A5');
