@@ -2,7 +2,7 @@
 
 > Веб-додаток для автоматизованої обробки Excel-карток обліку роботи машин за місяць (на основі шаблону 1СБ).
 
-![Preview](https://smikhotur.github.io/Machine-Work-Log-Card/)
+![Preview](https://smikhotur.github.io/Machine-Work-Log-Card/blob/main/public/logo.png)
 
 ## 🔗 Live Demo
 
