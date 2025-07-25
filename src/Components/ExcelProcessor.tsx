@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import ExcelJS, { CellRichTextValue, CellValue } from 'exceljs';
@@ -127,8 +128,8 @@ export const ExcelEditor: React.FC = () => {
           str = ''; // fallback, якщо тип не підтримується
         }
 
-        worksheet.getCell('K63').value = daysInMonth;
-        worksheet.getCell('K65').value = daysInMonth;
+        worksheet.getCell('K64').value = daysInMonth;
+        worksheet.getCell('K66').value = daysInMonth;
         worksheet.getCell('A5').value = replaceMonthAndYearWithCurrent(str);
 
         let sourceValue: number | undefined;
@@ -157,7 +158,7 @@ export const ExcelEditor: React.FC = () => {
         }
 
         if (sourceValueTwo !== undefined) {
-          worksheet.getCell('K49').value = sourceValueTwo;
+          worksheet.getCell('K50').value = sourceValueTwo;
         }
 
         let formulaTemplate = '';
@@ -190,12 +191,24 @@ export const ExcelEditor: React.FC = () => {
               });
 
               const jCell = worksheet.getCell(`J${row}`);
-              if (!jCell.formula && formulaTemplate) {
+              const currentFormula = jCell.formula;
+
+              if (currentFormula) {
+                // Якщо формула існує, але не має ROUND(..., 0)
+                if (!/^ROUND\(.+,\s*0\)$/.test(currentFormula)) {
+                  jCell.value = {
+                    formula: `ROUND(${currentFormula}, 0)`,
+                  };
+                }
+              } else if (formulaTemplate) {
+                // Якщо формули немає — вставити нову з ROUND
                 const relativeFormula = formulaTemplate.replace(
                   /([A-Z]+)(\d+)/g,
                   (_, col) => `${col}${row}`
                 );
-                jCell.value = { formula: relativeFormula };
+                jCell.value = {
+                  formula: `ROUND(${relativeFormula}, 0)`,
+                };
               }
             }
           }
@@ -206,7 +219,22 @@ export const ExcelEditor: React.FC = () => {
           if (!existingDays.includes(d)) missingDays.push(d);
         }
 
-        let insertRow = startRow + existingDays.length;
+        let insertRow =
+          Math.max(
+            ...existingDays.map((d) => {
+              // Знайти реальний рядок для кожного дня (перевірити де він стоїть)
+              for (let row = startRow; row <= endRow; row++) {
+                const cellValue = worksheet.getCell(`A${row}`).value;
+                if (
+                  typeof cellValue === 'string' &&
+                  cellValue.startsWith(`${String(d).padStart(2, '0')}.`)
+                ) {
+                  return row;
+                }
+              }
+              return startRow;
+            })
+          ) + 1;
         missingDays.forEach((day) => {
           if (insertRow > endRow) return;
           const formattedDay = `${String(day).padStart(2, '0')}.${month}`;
@@ -221,23 +249,204 @@ export const ExcelEditor: React.FC = () => {
               /([A-Z]+)(\d+)/g,
               (_, col) => `${col}${insertRow}`
             );
-            worksheet.getCell(`J${insertRow}`).value = { formula };
+            worksheet.getCell(`J${insertRow}`).value = {
+              formula: `ROUND(${formula}, 0)`,
+            };
           }
 
           insertRow++;
         });
 
-        if (existingDays.length > daysInMonth) {
-          for (
-            let row = startRow + daysInMonth;
-            row <= startRow + existingDays.length;
-            row++
-          ) {
-            ['A', 'B', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M'].forEach(
-              (col) => {
-                worksheet.getCell(`${col}${row}`).value = null;
-              }
+        const lastRowCell = worksheet.getCell('A44');
+        const lastRowValue = lastRowCell.value;
+
+        const cellA45 = worksheet.getCell('A45');
+        const cellB45 = worksheet.getCell('B45');
+        const cellC45 = worksheet.getCell('C45');
+        const cellD45 = worksheet.getCell('D45');
+        const cellE45 = worksheet.getCell('E45');
+        const cellF45 = worksheet.getCell('F45');
+        const cellG45 = worksheet.getCell('G45');
+        const cellH45 = worksheet.getCell('H45');
+        const cellI45 = worksheet.getCell('I45');
+        const cellJ45 = worksheet.getCell('J45');
+        const cellK45 = worksheet.getCell('K45');
+        const cellL45 = worksheet.getCell('L45');
+        const cellM45 = worksheet.getCell('M45');
+        const array = [
+          cellA45,
+          cellB45,
+          cellC45,
+          cellD45,
+          cellE45,
+          cellF45,
+          cellG45,
+          cellH45,
+          cellI45,
+          cellJ45,
+          cellK45,
+          cellL45,
+          cellM45,
+        ];
+
+        if (
+          typeof lastRowValue === 'string' &&
+          lastRowValue.startsWith('31.') &&
+          daysInMonth === 30
+        ) {
+          // 🟩 Додаємо формули у 44-й рядок
+          worksheet.getCell('D44').value = { formula: '=D43+E43' };
+          worksheet.getCell('E44').value = { formula: '=SUM(E14:E43)' };
+          worksheet.getCell('F44').value = { formula: '=SUM(F14:F43)' };
+          worksheet.getCell('G44').value = { formula: '=SUM(G14:G43)' };
+          worksheet.getCell('H44').value = { formula: '=SUM(H14:H43)' };
+          worksheet.getCell('I44').value = { formula: '=I43' };
+          worksheet.getCell('J44').value = { formula: '=SUM(J14:J43)' };
+          worksheet.getCell('K44').value = { formula: '=SUM(K14:K43)' };
+          worksheet.getCell('L44').value = { formula: '=SUM(L14:L43)' };
+          worksheet.getCell('M44').value = { formula: '=SUM(M14:M43)' };
+          worksheet.getCell('F7').value = { formula: '=D44' };
+
+          worksheet.getCell('K51').value = { formula: '=K44+L44' };
+          worksheet.getCell('K52').value = { formula: '=I44' };
+          worksheet.getCell('K53').value = { formula: '=J44' };
+          worksheet.getCell('K54').value = { formula: '=K53' };
+
+          worksheet.mergeCells('A44:B44');
+          const cell = worksheet.getCell('A44');
+
+          cell.value = 'Всього:';
+          cell.style = {
+            font: { bold: true, name: 'Times New Roman', size: 12 },
+            alignment: { horizontal: 'center', vertical: 'middle' },
+            border: {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' },
+            },
+          };
+
+          for (const c of array) {
+            c.style = {
+              font: { bold: false, name: 'Times New Roman', size: 12 },
+              alignment: { horizontal: 'center', vertical: 'middle' },
+              border: {
+                top: { style: 'thin' },
+              },
+            };
+          }
+
+          // 🧹 Очищаємо 45-й рядок
+          ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].forEach(
+            (col) => {
+              worksheet.getCell(`${col}45`).value = null;
+            }
+          );
+        }
+
+        if (daysInMonth === 31) {
+          console.log(289, daysInMonth);
+
+          worksheet.getCell('D45').value = { formula: '=D44+E44' };
+          worksheet.getCell('E45').value = { formula: '=SUM(E14:E44)' };
+          worksheet.getCell('F45').value = { formula: '=SUM(F14:F44)' };
+          worksheet.getCell('G45').value = { formula: '=SUM(G14:G44)' };
+          worksheet.getCell('H45').value = { formula: '=SUM(H14:H44)' };
+          worksheet.getCell('I45').value = { formula: '=I44' };
+          worksheet.getCell('J45').value = { formula: '=SUM(J14:J44)' };
+          worksheet.getCell('K45').value = { formula: '=SUM(K14:K44)' };
+          worksheet.getCell('L45').value = { formula: '=SUM(L14:L44)' };
+          worksheet.getCell('M45').value = { formula: '=SUM(M14:M44)' };
+          worksheet.getCell('F7').value = { formula: '=D45' };
+
+          worksheet.getCell('K51').value = { formula: '=K45+L45' };
+          worksheet.getCell('K52').value = { formula: '=I45' };
+          worksheet.getCell('K53').value = { formula: '=J45' };
+          worksheet.getCell('K54').value = { formula: '=K53' };
+
+          const cellA45 = worksheet.getCell('A45');
+
+          if (!cellA45.isMerged) {
+            worksheet.mergeCells('A45:B45');
+          }
+
+          cellA45.value = 'Всього:';
+          cellA45.style = {
+            font: { bold: true, name: 'Times New Roman', size: 12 },
+            alignment: { horizontal: 'center', vertical: 'middle' },
+          };
+
+          // Очистити 44-й рядок під 31 число
+          ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'].forEach(
+            (col) => {
+              worksheet.getCell(`${col}44`).value = null;
+            }
+          );
+
+          worksheet.unMergeCells('A44:B44');
+          worksheet.getCell('A44').value = `31.${month}`;
+          const cell = worksheet.getCell('A44');
+          const cell45 = worksheet.getCell('A45');
+          cell.style = {
+            font: { bold: false, name: 'Times New Roman', size: 11 },
+            alignment: { horizontal: 'center', vertical: 'middle' },
+            border: {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' },
+            },
+          };
+
+          cell45.style = {
+            font: { bold: true, name: 'Times New Roman', size: 12 },
+            alignment: { horizontal: 'center', vertical: 'middle' },
+            border: {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' },
+            },
+          };
+
+          worksheet.getCell('D44').value = { formula: '=D43+E43' };
+          worksheet.getCell('I44').value = { formula: '=I43+K44+L44-J44' };
+          const j44 = worksheet.getCell('J44');
+
+          // Перевіряємо: чи формула вже обгорнута рівно один раз у ROUND(..., 0)
+          if (j44.formula) {
+            const existing = j44.formula.trim();
+
+            const alreadyRounded = /^ROUND\([^\)]*,\s*0\)$/.test(existing);
+
+            if (!alreadyRounded) {
+              j44.value = {
+                formula: `ROUND(${existing}, 0)`,
+              };
+            }
+          } else if (formulaTemplate) {
+            const dynamicFormula = formulaTemplate.replace(
+              /([A-Z]+)(\d+)/g,
+              (_, col) => `${col}44`
             );
+
+            j44.value = {
+              formula: dynamicFormula,
+            };
+          }
+
+          for (const c of array) {
+            c.style = {
+              font: { bold: false, name: 'Times New Roman', size: 12 },
+              alignment: { horizontal: 'center', vertical: 'middle' },
+              border: {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' },
+              },
+            };
           }
         }
 
