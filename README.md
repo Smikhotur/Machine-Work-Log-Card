@@ -30,4 +30,4 @@
 git clone https://github.com/Smikhotur/Machine-Work-Log-Card.git
 cd Machine-Work-Log-Card
 npm install
-npm run dev
+npm start
