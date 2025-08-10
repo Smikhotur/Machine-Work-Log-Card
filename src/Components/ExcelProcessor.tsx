@@ -152,7 +152,7 @@ export const ExcelEditor: React.FC = () => {
         if (sourceValue !== undefined) {
           worksheet.getCell('F6').value = sourceValue;
           worksheet.getCell('G6').value = sourceValue;
-          worksheet.getCell('A6').value = Math.round(sourceValue); // 🟩 тут нове
+          // worksheet.getCell('A6').value = Math.round(sourceValue); // 🟩 тут нове
         }
         //!-----------------------------------------------------------------
         if (typeof fuel === 'number') {
