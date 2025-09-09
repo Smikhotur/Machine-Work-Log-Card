@@ -313,6 +313,7 @@ export const ExcelEditor: React.FC = () => {
           worksheet.getCell('K44').value = { formula: '=SUM(K14:K43)' };
           worksheet.getCell('L44').value = { formula: '=SUM(L14:L43)' };
           worksheet.getCell('M44').value = { formula: '=SUM(M14:M43)' };
+          worksheet.getCell('K65').value = { formula: '=COUNTA(E14:E43)' };
           worksheet.getCell('F7').value = { formula: '=D44' };
 
           worksheet.mergeCells('A44:B44');
@@ -364,6 +365,8 @@ export const ExcelEditor: React.FC = () => {
           worksheet.getCell('K45').value = { formula: '=SUM(K14:K44)' };
           worksheet.getCell('L45').value = { formula: '=SUM(L14:L44)' };
           worksheet.getCell('M45').value = { formula: '=SUM(M14:M44)' };
+          worksheet.getCell('K65').value = { formula: '=COUNTA(E14:E44)' };
+
           worksheet.getCell('F7').value = { formula: '=D45' };
 
           const cellA45 = worksheet.getCell('A45');
