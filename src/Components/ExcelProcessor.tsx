@@ -134,6 +134,7 @@ export const ExcelEditor: React.FC = () => {
         worksheet.getCell('K64').value = daysInMonth;
         worksheet.getCell('K66').value = daysInMonth;
         worksheet.getCell('A5').value = replaceMonthAndYearWithCurrent(str);
+        worksheet.getCell('A78').value = str.replace(/\b\d{4}\b/, '2026');
 
         let sourceValue: number | undefined;
         let sourceValueTwo: number | undefined;
