@@ -112,8 +112,9 @@ export const ExcelEditor: React.FC = () => {
         const speedometer = worksheet.getCell(`D${lastRow}`).value;
         const fuel = worksheet.getCell(`I${lastRow}`).value;
         const rawValue: CellValue = worksheet.getCell('A5').value;
+        const rawYear: CellValue = worksheet.getCell('A78').value || '';
 
-        console.log(112, rawValue);
+        console.log(112, rawYear);
 
         let str: string;
 
@@ -131,10 +132,29 @@ export const ExcelEditor: React.FC = () => {
           str = ''; // fallback, якщо тип не підтримується
         }
 
+        // if (typeof rawYear === 'string') {
+        //   strYear = rawYear;
+        // } else if (
+        //   typeof rawYear === 'object' &&
+        //   rawYear !== null &&
+        //   'richText' in rawYear
+        // ) {
+        //   strYear = (rawYear as CellRichTextValue).richText
+        //     .map((el) => el.text)
+        //     .join('');
+        // } else {
+        //   str = ''; // fallback, якщо тип не підтримується
+        // }
+
         worksheet.getCell('K64').value = daysInMonth;
         worksheet.getCell('K66').value = daysInMonth;
         worksheet.getCell('A5').value = replaceMonthAndYearWithCurrent(str);
-        worksheet.getCell('A78').value = str.replace(/\b\d{4}\b/, '2026');
+        worksheet.getCell('A78').value = String(rawYear).replace(
+          '2025',
+          '2026'
+        );
+
+        console.log(113, rawYear);
 
         let sourceValue: number | undefined;
         let sourceValueTwo: number | undefined;
